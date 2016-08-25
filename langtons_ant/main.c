@@ -13,6 +13,7 @@ const char *params = "PATTERN I\nOUTPUT langton.mpg\nBASE_FILE_FORMAT PPM\n"
 "PQSCALE 10\nBQSCALE 25\nREFERENCE_FRAME ORIGINAL\n";
 
 #define NAME_TEMPLATE ".langton_data/%010u.pbm"
+#define BOARD_LENGTH 128
 static int _x_size, _y_size, _skip, _sequence_number;
 
 int start_encode(int x_size, int y_size, int skip)
@@ -101,16 +102,68 @@ int finish_encode(void)
     return 0;
 }
 
-char buffer[128][128];
+char buffer[BOARD_LENGTH][BOARD_LENGTH];
+
+typedef struct {
+    int x;
+    int y;
+} Point;
+
+typedef struct {
+    Point current_position;
+    int direction;
+} Ant;
+
+Ant* init_ant() {
+    Ant* newAnt = (Ant*) malloc(sizeof(Ant));
+    newAnt->current_position.x = _x_size / 2;
+    newAnt->current_position.y = _y_size / 2;
+    newAnt->direction = 2;
+    return newAnt;
+}
+
+void _rotate_ant(Ant* ant, int num_times, int dir) {
+    int i;
+    for(i = 0; i < num_times; i++) {
+        ant->direction += dir;
+        ant->direction = ant->direction < 0 ? 3 : ant->direction > 3 ? 0 : ant->direction;
+    }
+}
+
+void rotate_ant_cw(Ant* ant, int num_times) {
+    _rotate_ant(ant, num_times, 1);
+}
+
+void rotate_ant_ccw(Ant* ant, int num_times) {
+    _rotate_ant(ant, num_times, -1);
+}
+
+void move_ant_forward(Ant* ant) {
+    if(ant->direction % 2) {
+        ant->current_position.x -= ant->direction - 2;
+    } else {
+        ant->current_position.y -= ant->direction - 1;
+    }
+}
+
+char validate_ant_pos(Ant* ant) {
+    return ant->current_position.x >= 0 && ant->current_position.x < _x_size && ant->current_position.y >= 0 && ant->current_position.y < _y_size;
+}
 
 int main(int argc, char *argv[])
 {
-    int i;
-    
-    start_encode(128, 128, 1);
-    for (i = 0; i < 128; i++) {
-        buffer[i][i] = 1;
-        next_frame((char *) buffer);
+    start_encode(BOARD_LENGTH, BOARD_LENGTH, 50);
+    Ant* ant = init_ant();
+    while(validate_ant_pos(ant)) {
+        char pos_val = buffer[ant->current_position.y][ant->current_position.x];
+        if(!pos_val) {
+            rotate_ant_cw(ant, 1);
+        } else {
+            rotate_ant_ccw(ant, 1);
+        }
+        buffer[ant->current_position.y][ant->current_position.x] = !pos_val;
+        move_ant_forward(ant);
+        next_frame((char*) buffer);
     }
     finish_encode();
     
