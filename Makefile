@@ -5,10 +5,14 @@ CC = gcc
 # -g      ~> add debugging information to the binary
 # -Wall   ~> display all warnings
 # -Werror ~> treat warnings as errors
-CFLAGS = -g -Wall -Werror
+CFLAGS = -Wall -Werror
+
+# debug flags:
+# -g      ~> add debugging information to the binary
+DFLAGS = -g
 
 # the build target:
-TARGET = srinivas_dhanwada.assignment-0
+TARGET = dhanwada_srinivas.assignment-0
 
 # define default target
 default: $(TARGET)
@@ -17,6 +21,10 @@ default: $(TARGET)
 $(TARGET): $(TARGET).c
 	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
 
+# define debug build instructions
+debug: $(TARGET).c
+	$(CC) $(CFLAGS) $(DFLAGS) -o $(TARGET) $(TARGET).c
+
 # define clean build instructions
 clean: 
-	$(RM) $(TARGET) *.o *~
+	$(RM) -r $(TARGET) *.o *~ *.dSYM/
