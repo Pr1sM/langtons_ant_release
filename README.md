@@ -18,5 +18,5 @@ run using:
 $ ./dhanwada_srinivas.assigment-0
 ```
 
-After the program completes, a file called `langtons_ant.mpeg` should be 
+After the program completes, a file called `langton.mpeg` should be 
 available for you to view!
