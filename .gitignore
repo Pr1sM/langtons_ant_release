@@ -2,7 +2,6 @@
 # Build Generated
 build/
 DerivedData/
-*.xcodeproj
 
 # Various settings
 *.pbxuser
@@ -55,3 +54,4 @@ xcuserdata/
 # Debug files
 *.dSYM/
 *.su
+*.mpg
