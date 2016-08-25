@@ -1,5 +1,5 @@
 # langtons_ant
-First assignment for CS 327
+First assignment for Com S 327 at [ISU](https://www.iastate.edu)
 
 This program creates a Langton's ant Simulation and renders the frames into an
 mpeg video.
@@ -20,3 +20,7 @@ $ ./dhanwada_srinivas.assigment-0
 
 After the program completes, a file called `langton.mpeg` should be 
 available for you to view!
+
+> This program does use [NetPBM](http://netpbm.sourceforge.net) to translate 
+> the ppm frames to an mpeg video.  This must be installed for the mpeg video 
+> to be created.
