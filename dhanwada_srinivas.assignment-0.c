@@ -166,6 +166,7 @@ int main(int argc, char *argv[])
         next_frame((char*) buffer);
     }
     finish_encode();
+    free(ant);
     
     return 0;
 }
