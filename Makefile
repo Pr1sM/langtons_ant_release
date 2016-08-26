@@ -14,7 +14,7 @@ DFLAGS = -ggdb
 TARGET = dhanwada_srinivas.assignment-0
 
 # define default target
-default: debug
+all: clean debug
 
 # define target build instructions
 $(TARGET): $(TARGET).c

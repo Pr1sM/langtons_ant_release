@@ -161,7 +161,7 @@ char validate_ant_pos(Ant* ant) {
 
 int main(int argc, char *argv[])
 {
-    start_encode(BOARD_LENGTH, BOARD_LENGTH, 5);
+    start_encode(BOARD_LENGTH, BOARD_LENGTH, 50);
     Ant* ant = init_ant();
     while(validate_ant_pos(ant)) {
         char pos_val = buffer[ant->current_position.y][ant->current_position.x];

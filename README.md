@@ -18,7 +18,7 @@ run using:
 $ ./dhanwada_srinivas.assigment-0
 ```
 
-After the program completes, a file called `langton.mpeg` should be 
+After the program completes, a file called `langton.mpg` should be 
 available for you to view!
 
 > This program does use [NetPBM](http://netpbm.sourceforge.net) to translate 
