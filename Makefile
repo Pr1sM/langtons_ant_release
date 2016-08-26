@@ -2,20 +2,19 @@
 CC = gcc
 
 # compiler flags:
-# -g      ~> add debugging information to the binary
 # -Wall   ~> display all warnings
 # -Werror ~> treat warnings as errors
 CFLAGS = -Wall -Werror
 
 # debug flags:
-# -g      ~> add debugging information to the binary
-DFLAGS = -g
+# -ggdb   ~> add gdb debugging information to the binary
+DFLAGS = -ggdb
 
 # the build target:
 TARGET = dhanwada_srinivas.assignment-0
 
 # define default target
-default: $(TARGET)
+all: clean debug
 
 # define target build instructions
 $(TARGET): $(TARGET).c
