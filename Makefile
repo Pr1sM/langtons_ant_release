@@ -24,6 +24,10 @@ $(TARGET): $(TARGET).c
 debug: $(TARGET).c
 	$(CC) $(CFLAGS) $(DFLAGS) -o $(TARGET) $(TARGET).c
 
+# define ant build instructions
+ant: ant/ant.h ant/ant.c
+	$(CC) $(CFLAGS) $(DFLAGS) -c -o ant.o ant/ant.c -I.
+
 # define clean build instructions
 clean: 
 	$(RM) -r $(TARGET) *.o *~ *.dSYM/

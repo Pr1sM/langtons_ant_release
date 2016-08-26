@@ -1,8 +1,14 @@
+//
+//  dhanwada_srinivas.assignment-0.c
+//  langtons_ant
+//
+
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <stdlib.h>
 #include <string.h>
+#include "ant/ant.h"
 
 const char *params = "PATTERN I\nOUTPUT langton.mpg\nBASE_FILE_FORMAT PPM\n"
 "INPUT_CONVERT *\nGOP_SIZE 650\nSLICES_PER_FRAME 1\n"
@@ -104,66 +110,11 @@ int finish_encode(void)
 
 char buffer[BOARD_LENGTH][BOARD_LENGTH];
 
-typedef struct {
-    int x;
-    int y;
-} Point;
-
-typedef struct {
-    Point current_position;
-    int direction;
-} Ant;
-
-Ant* init_ant() {
-    // allocate memory for the ant and set the
-    // current_postition and direction to the
-    // correct default values.
-    Ant* newAnt = (Ant*) malloc(sizeof(Ant));
-    newAnt->current_position.x = _x_size / 2;
-    newAnt->current_position.y = _y_size / 2;
-    newAnt->direction = 0;
-    return newAnt;
-}
-
-void rotate_ant(Ant* ant, int num_times, int dir) {
-    // NOTE: we are asserting that dir will be either 1 or -1 based on if the intended
-    //       direction of rotation is clockwise or counterclockwise.
-    int i;
-    for(i = 0; i < num_times; i++) {
-        // increment the direction, then correct if there is overflow.
-        ant->direction += dir;
-        ant->direction = ant->direction < 0 ? 3 : ant->direction > 3 ? 0 : ant->direction;
-    }
-}
-
-void move_ant_forward(Ant* ant) {
-    // The cardinal directions N, E, S, W are represented with values 0, 1, 2, 3, respectively.
-    // That means a value of 0 or 2 affects the y direction, and 1 or 3 affects the x direction.
-    // Check which axis we need to change first.
-    if(ant->direction % 2) {
-        // direction is either E or W (1 or 3).
-        // E changes the x position relatively by +1.
-        // W changes the x position relatively by -1.
-        // 2 - dir will correctly map 1 ~> 1 and 3 ~> -1.
-        ant->current_position.x += 2 - ant->direction;
-    } else {
-        // direction is either N or S (0 or 2).
-        // N changes the y position relatively by -1.
-        // S changes the y position relatively by +1.
-        // dir - 1 will correctly map 0 ~> -1 and 2 -> 1.
-        ant->current_position.y += ant->direction - 1;
-    }
-}
-
-char validate_ant_pos(Ant* ant) {
-    return ant->current_position.x >= 0 && ant->current_position.x < _x_size && ant->current_position.y >= 0 && ant->current_position.y < _y_size;
-}
-
 int main(int argc, char *argv[])
 {
     start_encode(BOARD_LENGTH, BOARD_LENGTH, 50);
-    Ant* ant = init_ant();
-    while(validate_ant_pos(ant)) {
+    Ant* ant = init_ant(_x_size, _y_size);
+    while(validate_ant_pos(ant, _x_size, _y_size)) {
         char pos_val = buffer[ant->current_position.y][ant->current_position.x];
         rotate_ant(ant, 1, pos_val == 1 ? -1 : 1);
         buffer[ant->current_position.y][ant->current_position.x] = !pos_val;
