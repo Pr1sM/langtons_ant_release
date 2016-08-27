@@ -11,23 +11,31 @@ CFLAGS = -Wall -Werror
 DFLAGS = -ggdb
 
 # the build target:
-TARGET = dhanwada_srinivas.assignment-0
+TARGET = langtons_ant
 
 # define default target
-all: clean debug
+all: $(TARGET)
 
 # define target build instructions
-$(TARGET): $(TARGET).c
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
+$(TARGET): $(TARGET).o libLangton.a
+	$(CC) $(CFLAGS) $(DFLAGS) $^ -o $@
 
-# define debug build instructions
-debug: $(TARGET).c
-	$(CC) $(CFLAGS) $(DFLAGS) -o $(TARGET) $(TARGET).c
+# define target.o build instructions
+$(TARGET).o: $(TARGET).c
+	$(CC) $(CFLAGS) $(DFLAGS) -c -o $@ $<
+
+# define lib build instructions
+libLangton.a: ant.o encode.o
+	ar rcs $@ $^
 
 # define ant build instructions
-ant: ant/ant.h ant/ant.c
-	$(CC) $(CFLAGS) $(DFLAGS) -c -o ant.o ant/ant.c -I.
+ant.o: ant/ant.c ant/ant.h
+	$(CC) $(CFLAGS) $(DFLAGS) -c -o $@ $<
+
+# define encode build instructions
+encode.o: encode/encode.c encode/encode.h
+	$(CC) $(CFLAGS) $(DFLAGS) -c -o $@ $<
 
 # define clean build instructions
 clean: 
-	$(RM) -r $(TARGET) *.o *~ *.dSYM/
+	$(RM) -r $(TARGET) *.o *.a *~ *.dSYM/

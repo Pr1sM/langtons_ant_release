@@ -1,6 +1,9 @@
 //
-//  dhanwada_srinivas.assignment-0.c
+//  encode.c
 //  langtons_ant
+//
+//  Created by Srinivas Dhanwada on 8/26/16.
+//  Copyright © 2016 dhanwada. All rights reserved.
 //
 
 #include <stdio.h>
@@ -8,19 +11,17 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ant/ant.h"
+#include "encode.h"
 
 const char *params = "PATTERN I\nOUTPUT langton.mpg\nBASE_FILE_FORMAT PPM\n"
-"INPUT_CONVERT *\nGOP_SIZE 650\nSLICES_PER_FRAME 1\n"
-"INPUT_DIR .\nINPUT\n"
-".langton_data/*.pbm [0000000000-%d+%d]\n"
-"END_INPUT\nPIXEL HALF\nRANGE 10\n"
-"PSEARCH_ALG LOGARITHMIC\nBSEARCH_ALG CROSS2\nIQSCALE 8\n"
-"PQSCALE 10\nBQSCALE 25\nREFERENCE_FRAME ORIGINAL\n";
+                     "INPUT_CONVERT *\nGOP_SIZE 650\nSLICES_PER_FRAME 1\n"
+                     "INPUT_DIR .\nINPUT\n"
+                     ".langton_data/*.pbm [0000000000-%d+%d]\n"
+                     "END_INPUT\nPIXEL HALF\nRANGE 10\n"
+                     "PSEARCH_ALG LOGARITHMIC\nBSEARCH_ALG CROSS2\nIQSCALE 8\n"
+                     "PQSCALE 10\nBQSCALE 25\nREFERENCE_FRAME ORIGINAL\n";
 
-#define NAME_TEMPLATE ".langton_data/%010u.pbm"
-#define BOARD_LENGTH 128
-static int _x_size, _y_size, _skip, _sequence_number;
+int _x_size, _y_size, _skip, _sequence_number;
 
 int start_encode(int x_size, int y_size, int skip)
 {
@@ -100,29 +101,9 @@ int finish_encode(void)
     f = fopen(name, "w");
     fwrite(encoder_params, strlen(encoder_params), 1, f);
     fclose(f);
-    
     system("ppmtompeg ppmtompeg_params");
     system("rm -f ppmtompeg_params");
     system("rm -rf .langton_data");
-    
-    return 0;
-}
-
-char buffer[BOARD_LENGTH][BOARD_LENGTH];
-
-int main(int argc, char *argv[])
-{
-    start_encode(BOARD_LENGTH, BOARD_LENGTH, 50);
-    Ant* ant = init_ant(_x_size, _y_size);
-    while(validate_ant_pos(ant, _x_size, _y_size)) {
-        char pos_val = buffer[ant->current_position.y][ant->current_position.x];
-        rotate_ant(ant, 1, pos_val == 1 ? -1 : 1);
-        buffer[ant->current_position.y][ant->current_position.x] = !pos_val;
-        move_ant_forward(ant);
-        next_frame((char*) buffer);
-    }
-    finish_encode();
-    free(ant);
     
     return 0;
 }

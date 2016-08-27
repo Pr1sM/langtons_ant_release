@@ -12,10 +12,10 @@ $ make
 ```
 For more information on `make`, click [here](https://www.gnu.org/software/make/)
 
-This will create an binary called `dhanwada_srinivas.assigment-0`. This can be 
+This will create an binary called `langtons_ant`. This can be 
 run using:
 ```bash
-$ ./dhanwada_srinivas.assigment-0
+$ ./langtons_ant
 ```
 
 After the program completes, a file called `langton.mpg` should be 
