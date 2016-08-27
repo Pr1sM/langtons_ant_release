@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2016-08-27
+
 ### Changed
 - Moved Ant specific code to separate folder `ant/`
 - Moved Encoding specific code to separate folder `encode/`
