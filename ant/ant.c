@@ -49,6 +49,18 @@ void move_ant_forward(Ant* ant, int x_size, int y_size) {
             ant->current_position.x += ant->current_position.x <  0      ?  x_size :
                                        ant->current_position.x >= x_size ? -x_size : 0;
         }
+        
+        // Check if we are in reflect mode and apply a redirection
+        // if the ant is out of bounds on the x-axis.
+        if(BORDER_MODE == 3) {
+            if(ant->current_position.x < 0) {
+                ant->current_position.x = 0;
+                ant->direction = 1;
+            } else if(ant->current_position.x >= x_size) {
+                ant->current_position.x = x_size-1;
+                ant->direction = 3;
+            }
+        }
     } else {
         // direction is either N or S (0 or 2).
         // N changes the y position relatively by -1.
@@ -62,6 +74,18 @@ void move_ant_forward(Ant* ant, int x_size, int y_size) {
             ant->current_position.y += ant->current_position.y <  0      ?  y_size :
                                        ant->current_position.y >= y_size ? -y_size : 0;
         }
+        
+        // Check if we are in reflect mode and apply a redirection
+        // if the ant is out of bounds on the y-axis.
+        if(BORDER_MODE == 3) {
+            if(ant->current_position.y < 0) {
+                ant->current_position.y = 0;
+                ant->direction = 2;
+            } else if(ant->current_position.y >= y_size) {
+                ant->current_position.y = y_size-1;
+                ant->direction = 0;
+            }
+        }
     }
 }
 
@@ -69,6 +93,7 @@ char validate_ant_pos(Ant* ant, int x_size, int y_size, int sequence_number) {
     int x_pass = ant->current_position.x >= 0 && ant->current_position.x < x_size;
     int y_pass = ant->current_position.x >= 0 && ant->current_position.y < y_size;
     int torus_pass = sequence_number <= 30000;
-    return BORDER_MODE == 1 ? y_pass :
-           BORDER_MODE == 2 ? torus_pass : x_pass && y_pass;
+    return BORDER_MODE == 1 ? y_pass     :
+           BORDER_MODE == 2 ? torus_pass :
+           BORDER_MODE == 3 ? torus_pass : x_pass && y_pass;
 }
