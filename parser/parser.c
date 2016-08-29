@@ -17,7 +17,9 @@ int BORDER_MODE = 0;
 const char* help_text = "Usage: langtons_ant [options]\n\n"
                         "-c, --cylinder    Run the ant in cylinder mode -- ant will wrap across the\n"
                         "                  x-axis.\n"
-                        "-h, --help        Print this help message.\n";
+                        "-h, --help        Print this help message.\n"
+                        "-t, --torus       Run the ant in torus mode -- ant will wrap across both\n"
+                        "                  the x and y axes.  This will override cylinder mode!\n";
 
 void parse_args(int argc, char** argv) {
     
@@ -34,11 +36,12 @@ void parse_args(int argc, char** argv) {
         static struct option long_options[] = {
             {"cylinder", no_argument, 0, 'c'},
             {"help", no_argument, 0, 'h'},
+            {"torus", no_argument, 0, 't'},
             {0, 0, 0, 0}
         };
         
         int option_index = 0;
-        flag = getopt_long(argc, argv, "ch", long_options, &option_index);
+        flag = getopt_long(argc, argv, "cht", long_options, &option_index);
         
         if(flag == -1) {
             break;
@@ -57,11 +60,17 @@ void parse_args(int argc, char** argv) {
                 break;
                 
             case 'c':
-                BORDER_MODE = 1;
+                if(BORDER_MODE == 0) {
+                    BORDER_MODE = 1;
+                }
                 break;
                 
             case 'h':
                 help_flag = 1;
+                break;
+                
+            case 't':
+                BORDER_MODE = 2;
                 break;
                 
             case '?':
