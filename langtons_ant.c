@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         char pos_val = buffer[ant->current_position.y][ant->current_position.x];
         rotate_ant(ant, 1, pos_val == 1 ? -1 : 1);
         buffer[ant->current_position.y][ant->current_position.x] = !pos_val;
-        move_ant_forward(ant);
+        move_ant_forward(ant, _x_size, _y_size);
         next_frame((char*) buffer);
     }
     finish_encode();

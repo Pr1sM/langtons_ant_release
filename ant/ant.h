@@ -21,7 +21,7 @@ typedef struct {
 
 Ant* init_ant(int x_size, int y_size);
 void rotate_ant(Ant* ant, int num_times, int dir);
-void move_ant_forward(Ant* ant);
+void move_ant_forward(Ant* ant, int x_size, int y_size);
 char validate_ant_pos(Ant* ant, int x_size, int y_size);
 
 #endif /* ant_h */
