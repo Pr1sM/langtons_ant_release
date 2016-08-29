@@ -13,10 +13,38 @@ $ make
 For more information on `make`, click [here](https://www.gnu.org/software/make/)
 
 This will create an binary called `langtons_ant`. This can be 
-run using:
+run with the default settings using:
 ```bash
 $ ./langtons_ant
 ```
+
+To view the different modes available for the ant, show the
+help menu:
+```bash
+$ ./langtons_ant -h
+```
+
+#### Run Modes
+
+This project includes several different modes that affect the ant's collision 
+with the borders.
+
+- **Normal**   - The ant will stop when it reaches any border.
+- **Cylinder** - The ant will wrap around on the x-axis borders, but will stop on the y-axis borders.
+- **Torus**    - The ant will wrap around on both axes' borders. 
+- **Reflect**  - The ant will reflect off of all borders when it reaches them
+
+To change the run mode, pass in a flag at runtime.
+
+| Run Mode | Flag                                            |
+|:--------:|:----------------------------------------------- |
+| Normal   | This is the default mode - _No flag necessary_. |
+| Cylinder | use `-c` or `--cylinder`.                       |
+| Torus    | use `-t` or `--torus`.                          |
+| Reflect  | use `-r` or `--reflect`.                        |
+
+
+There are several modes that determine the ant 
 
 After the program completes, a file called `langton.mpg` should be 
 available for you to view!
