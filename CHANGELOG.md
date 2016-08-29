@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2016-8-28
+
+### Added 
+- Parser for different options
+- Cylinder Mode - ant wraps left to right
+- Torus Mode - ant wraps on all axes
+- Reflect Mode - ant reflects when it hits the border
+
 ## [1.1.0] - 2016-08-27
 
 ### Changed

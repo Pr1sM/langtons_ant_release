@@ -25,7 +25,7 @@ $(TARGET).o: $(TARGET).c
 	$(CC) $(CFLAGS) $(DFLAGS) -c -o $@ $<
 
 # define lib build instructions
-libLangton.a: ant.o encode.o
+libLangton.a: ant.o encode.o parser.o
 	ar rcs $@ $^
 
 # define ant build instructions
@@ -34,6 +34,10 @@ ant.o: ant/ant.c ant/ant.h
 
 # define encode build instructions
 encode.o: encode/encode.c encode/encode.h
+	$(CC) $(CFLAGS) $(DFLAGS) -c -o $@ $<
+
+# define parser build instructions
+parser.o: parser/parser.c parser/parser.h
 	$(CC) $(CFLAGS) $(DFLAGS) -c -o $@ $<
 
 # define clean build instructions
