@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "ant/ant.h"
 #include "encode/encode.h"
+#include "parser/parser.h"
 
 #define BOARD_LENGTH 128
 
@@ -14,6 +15,7 @@ char buffer[BOARD_LENGTH][BOARD_LENGTH];
 
 int main(int argc, char *argv[])
 {
+    parse_args(argc, argv);
     start_encode(BOARD_LENGTH, BOARD_LENGTH, 50);
     Ant* ant = init_ant(_x_size, _y_size);
     while(validate_ant_pos(ant, _x_size, _y_size)) {
