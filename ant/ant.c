@@ -43,9 +43,9 @@ void move_ant_forward(Ant* ant, int x_size, int y_size) {
         // 2 - dir will correctly map 1 ~> 1 and 3 ~> -1.
         ant->current_position.x += 2 - ant->direction;
         
-        // Check if we are in cylinder mode and apply a wrap
-        // if the is out of bounds in the x axis
-        if(BORDER_MODE > 0) {
+        // Check if we are in cylinder/torus mode and apply a wrap
+        // if the ant is out of bounds on the x axis.
+        if(BORDER_MODE > 0 && BORDER_MODE <= 2) {
             ant->current_position.x += ant->current_position.x <  0      ?  x_size :
                                        ant->current_position.x >= x_size ? -x_size : 0;
         }
@@ -55,12 +55,20 @@ void move_ant_forward(Ant* ant, int x_size, int y_size) {
         // S changes the y position relatively by +1.
         // dir - 1 will correctly map 0 ~> -1 and 2 ~> 1.
         ant->current_position.y += ant->direction - 1;
+        
+        // Check if we are in torus mode and apply a wrap
+        // if the ant is out of bounds on the y-axis.
+        if(BORDER_MODE == 2) {
+            ant->current_position.y += ant->current_position.y <  0      ?  y_size :
+                                       ant->current_position.y >= y_size ? -y_size : 0;
+        }
     }
 }
 
-char validate_ant_pos(Ant* ant, int x_size, int y_size) {
-    int x_pass = BORDER_MODE > 0 || (ant->current_position.x >= 0 && ant->current_position.x < x_size);
-    return x_pass &&
-           ant->current_position.y >= 0 &&
-           ant->current_position.y < y_size;
+char validate_ant_pos(Ant* ant, int x_size, int y_size, int sequence_number) {
+    int x_pass = ant->current_position.x >= 0 && ant->current_position.x < x_size;
+    int y_pass = ant->current_position.x >= 0 && ant->current_position.y < y_size;
+    int torus_pass = sequence_number <= 30000;
+    return BORDER_MODE == 1 ? y_pass :
+           BORDER_MODE == 2 ? torus_pass : x_pass && y_pass;
 }

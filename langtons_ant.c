@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     parse_args(argc, argv);
     start_encode(BOARD_LENGTH, BOARD_LENGTH, 50);
     Ant* ant = init_ant(_x_size, _y_size);
-    while(validate_ant_pos(ant, _x_size, _y_size)) {
+    while(validate_ant_pos(ant, _x_size, _y_size, _sequence_number)) {
         char pos_val = buffer[ant->current_position.y][ant->current_position.x];
         rotate_ant(ant, 1, pos_val == 1 ? -1 : 1);
         buffer[ant->current_position.y][ant->current_position.x] = !pos_val;
