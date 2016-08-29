@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added 
+- Parser for different options
+
 ## [1.1.0] - 2016-08-27
 
 ### Changed
