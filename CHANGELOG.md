@@ -3,7 +3,15 @@ All notable changes to this project (langtons_ant) will be documented in this fi
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.3.0] - 2016-8-29
+
+### Added
+- Variable canvas size - you can now specify a width and length using a flag
+- Variable frame skip rate - you can now specify the frame skip rate with a flag
+
+### Fixed
+- Bug where cylinder would not terminate when ant crossed y-axis top border
+- Typo in README.md
 
 ## [1.2.0] - 2016-8-28
 

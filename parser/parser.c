@@ -26,14 +26,20 @@ int ARG_WIDTH = BOARD_LENGTH_DEFAULT;
 int ARG_SKIP = SKIP_LENGTH_DEFAULT;
 
 const char* help_text = "Usage: langtons_ant [options]\n\n"
-                        "-c, --cylinder    Run the ant in cylinder mode -- ant will wrap across the\n"
-                        "                  x-axis.\n"
-                        "-h, --help        Print this help message.\n"
-                        "-r, --reflect     Run the ant in reflect mode -- ant will change direction\n"
-                        "                  when it hits a border.  This will override both cylinder\n"
-                        "                  and torus modes!\n"
-                        "-t, --torus       Run the ant in torus mode -- ant will wrap across both\n"
-                        "                  the x and y axes.  This will override cylinder mode!\n";
+                        "-c, --cylinder     Run the ant in cylinder mode -- ant will wrap across the\n"
+                        "                   x-axis.\n"
+                        "-h, --help         Print this help message.\n"
+                        "-l, --length <int> The width of the canvas.  The default value is 128.  This\n"
+                        "                   value can be in the following range: [1,255].\n"
+                        "-r, --reflect      Run the ant in reflect mode -- ant will change direction\n"
+                        "                   when it hits a border.  This will override both cylinder\n"
+                        "                   and torus modes!\n"
+                        "-s, --skip <int>   The number of frames to skip when creating the mpg video\n"
+                        "                   This value must be greater than 0.\n"
+                        "-t, --torus        Run the ant in torus mode -- ant will wrap across both\n"
+                        "                   the x and y axes.  This will override cylinder mode!\n"
+                        "-w, --width <int>  The width of the canvas.  The default value is 128.  This\n"
+                        "                   value can be in the following range: [1,255].\n";
 
 int is_number(char* str) {
     int val = atoi(str);
@@ -56,8 +62,8 @@ void parse_args(int argc, char** argv) {
         // Setup options
         static struct option long_options[] = {
             {"cylinder", no_argument, 0, 'c'},
-            {"length", required_argument, 0, 'l'},
             {"help", no_argument, 0, 'h'},
+            {"length", required_argument, 0, 'l'},
             {"reflect", no_argument, 0, 'r'},
             {"skip", required_argument, 0, 's'},
             {"torus", no_argument, 0, 't'},
@@ -92,6 +98,10 @@ void parse_args(int argc, char** argv) {
                 }
                 break;
                 
+            case 'h':
+                help_flag = 1;
+                break;
+                
             case 'l':
                 number = is_number(optarg);
                 if(number <= 0 || number >= 256) {
@@ -99,10 +109,6 @@ void parse_args(int argc, char** argv) {
                     exit_with_help();
                 }
                 ARG_LENGTH = number;
-                break;
-                
-            case 'h':
-                help_flag = 1;
                 break;
                 
             case 'r':
