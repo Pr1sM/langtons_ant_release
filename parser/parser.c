@@ -26,20 +26,20 @@ int ARG_WIDTH = BOARD_LENGTH_DEFAULT;
 int ARG_SKIP = SKIP_LENGTH_DEFAULT;
 
 const char* help_text = "Usage: langtons_ant [options]\n\n"
-                        "-c, --cylinder     Run the ant in cylinder mode -- ant will wrap across the\n"
-                        "                   x-axis.\n"
-                        "-h, --help         Print this help message.\n"
-                        "-l, --length <int> The width of the canvas.  The default value is 128.  This\n"
-                        "                   value can be in the following range: [1,255].\n"
-                        "-r, --reflect      Run the ant in reflect mode -- ant will change direction\n"
-                        "                   when it hits a border.  This will override both cylinder\n"
-                        "                   and torus modes!\n"
-                        "-s, --skip <int>   The number of frames to skip when creating the mpg video\n"
-                        "                   This value must be greater than 0.\n"
-                        "-t, --torus        Run the ant in torus mode -- ant will wrap across both\n"
-                        "                   the x and y axes.  This will override cylinder mode!\n"
-                        "-w, --width <int>  The width of the canvas.  The default value is 128.  This\n"
-                        "                   value can be in the following range: [1,255].\n";
+                        "-c,      --cylinder     Run the ant in cylinder mode -- ant will wrap across the\n"
+                        "                        x-axis.\n"
+                        "-h,      --help         Print this help message.\n"
+                        "-l<int>, --length <int> The width of the canvas.  The default value is 128.\n"
+                        "                        This value can be in the following range: [1,255].\n"
+                        "-r,      --reflect      Run the ant in reflect mode -- ant will change\n"
+                        "                        direction when it hits a border.  This will override\n"
+                        "                        both cylinder and torus modes!\n"
+                        "-s<int>, --skip <int>   The number of frames to skip when creating the mpg\n"
+                        "                        video. This value must be greater than 0.\n"
+                        "-t,      --torus        Run the ant in torus mode -- ant will wrap across both\n"
+                        "                        the x and y axes.  This will override cylinder mode!\n"
+                        "-w<int>, --width <int>  The width of the canvas.  The default value is 128.\n"
+                        "                        This value can be in the following range: [1,255].\n";
 
 int is_number(char* str) {
     int val = atoi(str);
