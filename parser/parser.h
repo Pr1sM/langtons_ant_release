@@ -19,6 +19,11 @@
 //     3 = reflect   -> reflect direction when ant meets a border.
 extern int BORDER_MODE;
 
+// The Length and Width of the args passed in.  The default is 128 for both.
+extern int ARG_LENGTH;
+extern int ARG_WIDTH;
+
 void parse_args(int argc, char** argv);
+void exit_with_help();
 
 #endif /* parser_h */

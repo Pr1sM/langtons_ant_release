@@ -37,6 +37,7 @@ int start_encode(int x_size, int y_size, int skip)
     
     if (skip < 1) {
         fprintf(stderr, "Error: skip must be positive.\n");
+        return 1;
     }
     
     system("rm -f ppmtompeg_params");
