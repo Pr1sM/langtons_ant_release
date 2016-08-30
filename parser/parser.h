@@ -19,9 +19,12 @@
 //     3 = reflect   -> reflect direction when ant meets a border.
 extern int BORDER_MODE;
 
-// The Length and Width of the args passed in.  The default is 128 for both.
+// The Length and Width of the board size.  The default is 128 for both.
 extern int ARG_LENGTH;
 extern int ARG_WIDTH;
+
+// The skip length of the frames.  The default is 50 frames.
+extern int ARG_SKIP;
 
 void parse_args(int argc, char** argv);
 void exit_with_help();

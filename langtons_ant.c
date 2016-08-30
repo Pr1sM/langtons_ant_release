@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
             buffer[i][j] = 0;
         }
     }
-    start_encode_pass = start_encode(ARG_WIDTH, ARG_LENGTH, 50);
+    start_encode_pass = start_encode(ARG_WIDTH, ARG_LENGTH, ARG_SKIP);
     if(start_encode_pass != 0) {
         exit_with_help();
     }

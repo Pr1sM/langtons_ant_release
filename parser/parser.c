@@ -16,10 +16,14 @@
 // Default board length
 #define BOARD_LENGTH_DEFAULT 128
 
+// Default skip length
+#define SKIP_LENGTH_DEFAULT 50
+
 // Defined from parser.h
 int BORDER_MODE = 0;
 int ARG_LENGTH = BOARD_LENGTH_DEFAULT;
 int ARG_WIDTH = BOARD_LENGTH_DEFAULT;
+int ARG_SKIP = SKIP_LENGTH_DEFAULT;
 
 const char* help_text = "Usage: langtons_ant [options]\n\n"
                         "-c, --cylinder    Run the ant in cylinder mode -- ant will wrap across the\n"
@@ -55,13 +59,14 @@ void parse_args(int argc, char** argv) {
             {"length", required_argument, 0, 'l'},
             {"help", no_argument, 0, 'h'},
             {"reflect", no_argument, 0, 'r'},
+            {"skip", required_argument, 0, 's'},
             {"torus", no_argument, 0, 't'},
             {"width", required_argument, 0, 'w'},
             {0, 0, 0, 0}
         };
         
         int option_index = 0;
-        flag = getopt_long(argc, argv, "chrtl:w:", long_options, &option_index);
+        flag = getopt_long(argc, argv, "chrtl:s:w:", long_options, &option_index);
         
         // flags are finished, break out of while loop
         if(flag == -1) {
@@ -102,6 +107,15 @@ void parse_args(int argc, char** argv) {
                 
             case 'r':
                 BORDER_MODE = 3;
+                break;
+                
+            case 's':
+                number = is_number(optarg);
+                if(number <= 0) {
+                    fprintf(stderr, "Error: skip must be a positive integer.\n");
+                    exit_with_help();
+                }
+                ARG_SKIP = number;
                 break;
                 
             case 't':
