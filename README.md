@@ -43,8 +43,36 @@ To change the run mode, pass in a flag at runtime.
 | Torus    | use `-t` or `--torus`.                          |
 | Reflect  | use `-r` or `--reflect`.                        |
 
+> You can pass in multiple run modes, however only one will be selected.
+> Torus will override Cylinder, and Reflect will override both Cylinder and Torus.
 
-There are several modes that determine the ant 
+#### Variable Canvas Size
+
+The length or width of the canvas used can be changed based on flags passed in:
+
+| Dimension | Flag                                            |
+|:---------:|:----------------------------------------------- |
+| Length    | use `-l<int>` or `--length <int>`.              |
+| Width     | use `-w<int>` or `--width <int>`.               |
+
+> Both the length and width have a default value of 128 if no flag is passed in.
+> The range of these argument is [1,255]. Additionally, for encoding to work 
+> properly, the area of the canvas (length * width) must be divisible by 8.
+
+```bash
+$ ./langtons_ant -w64 --length 120
+```
+
+#### Variable Frame Skip Rate
+
+The number of frames to skip can be varied using a flag.  This will speed up or slow down
+the final .mpg video based on if the number is high or low.  To vary the skip rate, pass in 
+the following flag:
+
+```
+$ ./langtons_ant -s45
+$ ./langtons_ant --skip 42
+```
 
 After the program completes, a file called `langton.mpg` should be 
 available for you to view!

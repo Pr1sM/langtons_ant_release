@@ -10,6 +10,8 @@
 #include "ant.h"
 #include "../parser/parser.h"
 
+#define MAX_STEPS 30000
+
 Ant* init_ant(int x_size, int y_size) {
     // allocate memory for the ant and set the
     // current_postition and direction to the
@@ -90,10 +92,17 @@ void move_ant_forward(Ant* ant, int x_size, int y_size) {
 }
 
 char validate_ant_pos(Ant* ant, int x_size, int y_size, int sequence_number) {
+    // Check if x coordinate is in bounds.
     int x_pass = ant->current_position.x >= 0 && ant->current_position.x < x_size;
-    int y_pass = ant->current_position.x >= 0 && ant->current_position.y < y_size;
-    int torus_pass = sequence_number <= 30000;
-    return BORDER_MODE == 1 ? y_pass     :
-           BORDER_MODE == 2 ? torus_pass :
-           BORDER_MODE == 3 ? torus_pass : x_pass && y_pass;
+    
+    // Check if y coordinate is in bounds.
+    int y_pass = ant->current_position.y >= 0 && ant->current_position.y < y_size;
+    
+    // Check if sequence has gone on too long.
+    int max_steps = sequence_number <= MAX_STEPS;
+    
+    // Check for the proper conditions based on the border mode.
+    return max_steps &&
+          (BORDER_MODE == 0 ? x_pass : 1) &&
+          (BORDER_MODE <= 1 ? y_pass : 1);
 }
