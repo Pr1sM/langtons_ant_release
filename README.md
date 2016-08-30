@@ -70,7 +70,7 @@ the final .mpg video based on if the number is high or low.  To vary the skip ra
 the following flag:
 
 ```
-$ ./langtons_ant -s 45
+$ ./langtons_ant -s45
 $ ./langtons_ant --skip 42
 ```
 
